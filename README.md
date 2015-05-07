@@ -15,8 +15,6 @@ This project is an amalgamation of existing utilities and tools - the glue is sh
 chmod +x speedgraphing.sh
 ./speedgraphing.sh
 ```
-The `speedgraphing` script will check that all dependencies are in-place, and will try to download 3rd party requirements if they are not present.
-
 
 ### Dependencies
 
