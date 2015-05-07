@@ -3,8 +3,18 @@
 # Check that utilities we need are present.
 echo -n "Checking utilities..."
 command -v wget >/dev/null || { echo "wget is required but not present. Please install the wget utility."; exit 1; }
-command -v chmod >/dev/null || { echo "chmod- is required but not present. Please install the chmod utility."; exit 1; }
+command -v chmod >/dev/null || { echo "chmod is required but not present. Please install the chmod utility."; exit 1; }
+command -v grep >/dev/null || { echo "grep is required but not present. Please install the grep utility."; exit 1; }
 echo " OK"
+
+# Check Python version
+echo -n "Checking Python version... "
+command -v python3 >/dev/null || { echo " Python3 is required but not present. Please install Python3."; exit 1; }
+
+if python3 --version | grep -q "Python 2."; then
+	echo "Python3 is required but only Python2 was found. Please install Python3."
+	exit 1
+fi
 
 # Check for speedtest-cli and grab it if it's not present.
 echo -n "Checking for speedtest-cli..."
