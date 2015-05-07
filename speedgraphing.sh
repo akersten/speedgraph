@@ -28,4 +28,4 @@ fi
 export RAN_VIA_INIT=YES
 
 # Rock and roll.
-python speedgraphing.py
+python3 speedgraphing.py
