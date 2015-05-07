@@ -20,12 +20,13 @@ The `speedgraphing` script will check that all dependencies are in-place, and wi
 
 ### Dependencies
 
-* Python
+* Python3
 * [speedtest-cli](https://github.com/sivel/speedtest-cli) (automatically downloaded if not present)
+* `grep`, `chmod`, `wget`
 
 ### Usage
 
-* When running the script, the user is prompted for a test interval (default 5 minutes)
+* When running the script, the user is prompted for a test interval (default 3 minutes)
 * Raw data and generated png graphs are presented in `./output`
 
 ## Contributors
