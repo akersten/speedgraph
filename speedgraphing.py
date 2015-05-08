@@ -32,9 +32,10 @@ while query:
             query = True
 
 
+print('[', time.strftime('%H:%M:%S'), '] Starting tests...')
+
 # Continously spawn speedtest processes and save/graph the output.
 while True:
-    print('[', time.strftime('%H:%M:%S'), '] Running speedtest...')
     res = subprocess.Popen(['./speedtest-cli', '--simple'], stdout=subprocess.PIPE)
 
     # The output looks like this:
@@ -44,9 +45,13 @@ while True:
     # So we'll just use regex on the middle thing (space separated) to extract the value.
     values = []
     for line in res.stdout.readlines():
-        values.append(re.search('.* ([^ ]*) .*', line.decode('utf-8')).group(1))
+        try:
+            values.append(re.search('.* ([^ ]*) .*', line.decode('utf-8')).group(1))
+        except IndexError:
+            print('[', time.strftime('%H:%M:%S'), '] Problem parsing output:', line)
+            continue
 
-    print('Ping:', values[0], 'Down:', values[1], 'Up:', values[2])
+    if len(values) == 3:
+        print('[', time.strftime('%H:%M:%S'), '] Ping:', values[0], 'Down:', values[1], 'Up:', values[2])
 
-    print('[', time.strftime('%H:%M:%S'), '] Waiting', interval, 'minutes...')
     time.sleep(60 * interval)
