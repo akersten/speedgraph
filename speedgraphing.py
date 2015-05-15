@@ -36,6 +36,16 @@ print('[', time.strftime('%H:%M:%S'), '] Starting tests...')
 
 # Continously spawn speedtest processes and save/graph the output.
 while True:
+    # Figure out the name of today's file.
+    todaysFilename = time.strftime('%Y.%m.%d')
+    
+    # Update the symbolic links of the `today` files
+    os.symlink(todaysFilename + '.png', 'output/tmp.png')
+    os.symlink(todaysFilename + '.txt', 'output/tmp.txt')
+    os.rename('output/tmp.png', 'output/today.png')
+    os.rename('output/tmp.txt', 'output/today.txt')
+
+    # Start the speedtest process.
     res = subprocess.Popen(['./speedtest-cli', '--simple'], stdout=subprocess.PIPE)
 
     # The output looks like this:
@@ -46,12 +56,25 @@ while True:
     values = []
     for line in res.stdout.readlines():
         try:
+            # Extract the middle part of each line as our numeric value.
             values.append(re.search('.* ([^ ]*) .*', line.decode('utf-8')).group(1))
         except IndexError:
+            # If that group didn't exist, the output didn't look like what we expected.
             print('[', time.strftime('%H:%M:%S'), '] Problem parsing output:', line)
             continue
 
+    # Format output and append it to a text file.
+    outputLine = ''
     if len(values) == 3:
-        print('[', time.strftime('%H:%M:%S'), '] Ping:', values[0], 'Down:', values[1], 'Up:', values[2])
+        outputLine = '[ ' + time.strftime('%H:%M:%S') + ' ] Ping: ' + values[0] + ' Down: ' + values[1] + ' Up: ' + values[2]
+    else:
+        outputLine = '[ ' + time.strftime('%H:%M:%S') + ' ] Parse error'
+
+    print(outputLine)
+    with open('output/' + todaysFilename + '.txt', 'a') as f:
+        f.write(outputLine + '\n')
+
+    # Generate the graph and save it over the old one for today.
+
 
     time.sleep(60 * interval)
