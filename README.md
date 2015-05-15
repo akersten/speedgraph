@@ -12,8 +12,9 @@ This project is an amalgamation of existing utilities and tools - the glue is sh
 ## Setup
 
 ```
+git clone git@github.com:akersten/speedgraph.git
+cd speedgraph
 chmod +x speedgraphing.sh
-./speedgraphing.sh
 ```
 
 ### Dependencies
@@ -23,7 +24,11 @@ chmod +x speedgraphing.sh
 * [speedtest-cli](https://github.com/sivel/speedtest-cli) (automatically downloaded if not present)
 * `grep`, `chmod`, `wget`
 
-### Usage
+## Usage
+
+```
+./speedgraphing.sh
+```
 
 * When running the script, the user is prompted for a test interval (default 3 minutes)
 * Raw data and generated png graphs are presented in `./output`
