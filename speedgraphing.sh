@@ -33,6 +33,21 @@ else
     fi
 fi
 
+# Check that the output directory exists and create it if it doesn't
+echo -n "Checking for output directory..."
+if [ -e "output/" ];
+then
+    echo " OK"
+else
+    if mkdir output;
+    then
+        echo " created."
+    else
+        echo " problem creating output directory! Please: chmod u+w ."
+        exit 1
+    fi
+fi
+
 # Tell our python script that things should be alright and we can skip some sanity checks that are
 # already covered here.
 export RAN_VIA_INIT=YES
