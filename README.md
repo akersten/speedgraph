@@ -3,7 +3,7 @@ A toolkit for graphing network speed over time
 
 ## Overview
 
-Graphing the network speed over time is a useful metric for diagnosing network congestion issues. This toolkit automates the setup and execution of freely-available utilities to ease the process of generating network-speed-over-time graphs.
+Graphing the network speed over time is a useful metric for diagnosing network congestion issues. This toolkit generates network-speed-over-time graphs at a specified interval.
 
 ## Technologies
 
@@ -19,6 +19,7 @@ chmod +x speedgraphing.sh
 ### Dependencies
 
 * Python3
+* `python-matplotlib` package ([or from source:](http://matplotlib.org/downloads.html))
 * [speedtest-cli](https://github.com/sivel/speedtest-cli) (automatically downloaded if not present)
 * `grep`, `chmod`, `wget`
 
