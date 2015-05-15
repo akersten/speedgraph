@@ -1,4 +1,5 @@
 import os, subprocess, time, re
+import matplotlib.pyplot as plt
 
 # Check that we ran the init script.
 if os.environ.get('RAN_VIA_INIT') != "YES":
@@ -34,6 +35,9 @@ while query:
 
 print('[', time.strftime('%H:%M:%S'), '] Starting tests...')
 
+valuesOverTime = [] # This will be an array of tuples for plotting: (minutesSinceMidnight, [ping, download, upload])
+currentDay = time.localtime().tm_yday # If this changes, clear the valuesOverTime array (new, blank graph for each day)
+ 
 # Continously spawn speedtest processes and save/graph the output.
 while True:
     # Figure out the name of today's file.
@@ -63,6 +67,16 @@ while True:
             print('[', time.strftime('%H:%M:%S'), '] Problem parsing output:', line)
             continue
 
+    # Update values in the valuesOverTime array. Clear it if it's a new day.
+    if currentDay != time.localtime().tm_yday:
+        currentDay = time.localtime().tm_yday;
+        valuesOverTime = []
+
+    mpm = time.localtime().tm_hour * 60 + time.localtime().tm_min
+    valuesOverTime.append( (mpm, values) )
+
+    valuesOverTime
+
     # Format output and append it to a text file.
     outputLine = ''
     if len(values) == 3:
@@ -75,6 +89,7 @@ while True:
         f.write(outputLine + '\n')
 
     # Generate the graph and save it over the old one for today.
-
+    
+    
 
     time.sleep(60 * interval)
