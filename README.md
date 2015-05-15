@@ -19,7 +19,7 @@ chmod +x speedgraphing.sh
 ### Dependencies
 
 * Python3
-* `python-matplotlib` package ([or from source:](http://matplotlib.org/downloads.html))
+* `python3-matplotlib` package ([from source](http://matplotlib.org/downloads.html))
 * [speedtest-cli](https://github.com/sivel/speedtest-cli) (automatically downloaded if not present)
 * `grep`, `chmod`, `wget`
 
