@@ -26,6 +26,9 @@ chmod +x speedgraphing.sh
 
 * When running the script, the user is prompted for a test interval (default 3 minutes)
 * Raw data and generated png graphs are presented in `./output`
+* The format of the data is text files and pngs (`yyyy.mm.dd.txt` and `.png`) containing that day's speeds
+* The text output is also emitted on stdout
+* Files named `today.txt` and `today.png` will be dynamically symlinked to the current day's file
 
 ## Contributors
 
