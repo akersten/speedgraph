@@ -75,8 +75,6 @@ while True:
     mpm = time.localtime().tm_hour * 60 + time.localtime().tm_min
     valuesOverTime.append( (mpm, values) )
 
-    valuesOverTime
-
     # Format output and append it to a text file.
     outputLine = ''
     if len(values) == 3:
@@ -89,7 +87,26 @@ while True:
         f.write(outputLine + '\n')
 
     # Generate the graph and save it over the old one for today.
-    
-    
+    addedLabels = False
+    for v in valuesOverTime: 
+        if len(v[1]) == 3:
+            plt.plot(v[0], v[1][0], '-g', linewidth=4, label='Ping (ms)' if not addedLabels else "_nolegend_")
+            plt.plot(v[0], v[1][1], '-b', linewidth=4, label='Down (Mb/s)' if not addedLabels else "_nolegend_")
+            plt.plot(v[0], v[1][2], '-r', linewidth=4, label='Up (Mb/s)' if not addedLabels else "_nolegend_")
+            addedLabels = True
+
+    # Plot configuration
+    plt.title(time.strftime('Network Performance on %Y.%m.%d'))
+
+    # Turn off scientific notation on the x-axis
+    plt.gca().get_xaxis().get_major_formatter().set_useOffset(False)
+
+    plt.xlabel('Time since midnight (minutes)')
+    plt.ylabel('(Varying)')
+    plt.legend()
+
+    plt.savefig('output/' + todaysFilename + '.png')
+    plt.clf()
+    plt.close() 
 
     time.sleep(60 * interval)
